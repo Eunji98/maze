@@ -14,7 +14,7 @@ int end_y = 0;
 int** maze;
 int row;
 int col;
-int dx[4] = {1, 0, -1,0 };
+int dx[4] = {1, 0, -1,0};
 int dy[4] = {0, 1, 0,-1};
 
 
@@ -28,7 +28,10 @@ int inside(int x, int y) {
 
 void print_sol() {
 	for (int i = 0;i < ans_x.size();i++) {
-		cout << ans_x[i] << ',' << ans_y[i] << endl;
+		if (i == ans_x.size() - 1)
+			cout << "(" << ans_x[i] << ", " << ans_y[i] << ")";
+		else
+			cout << "(" << ans_x[i] << ", " << ans_y[i] << ")" << "->";
 	}
 	return;
 	
@@ -55,7 +58,6 @@ void solve_maze(int x, int y, int dir) {
 		int new_x = x + dx[(dir+i)%4];
 		int new_y = y + dy[(dir + i) % 4];
 		if (inside(new_x, new_y) && maze[new_x][new_y] == 1) {
-			cout << new_x << new_y << (dir + i) % 4<< endl;
 			solve_maze(new_x, new_y, (dir+i)%4);
 			break;
 		}
@@ -87,14 +89,10 @@ int main() {
 
 	//making maze with dynamic allocation
 	maze = (int**)malloc(sizeof(int*) * row);
-	visited = (int**)malloc(sizeof(int*) * row);
 	for (int i = 0;i < row;i++) {
 		maze[i] = (int*)malloc(sizeof(int) * col);
-		visited[i] = (int*)malloc(sizeof(int) * col);
-		for (int j = 0;j < col;j++) {
+		for (int j = 0;j < col;j++)
 			maze[i][j] = 0;
-			visited[i][j] = 0;
-		}
 	}
 
 
