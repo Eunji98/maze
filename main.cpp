@@ -77,6 +77,11 @@ void print_maze() {
 	}
 }
 
+void delete_maze() {
+	for (int i = 0;i < row;i++)
+		free(maze[i]);
+	free(maze);
+}
 
 int main() {
 
@@ -134,6 +139,8 @@ int main() {
 	solve_maze(start_x, start_y,1);
 
 	print_sol();
+	
+	delete_maze();
 	
 
 	return 0;
